@@ -1,0 +1,19 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "board-of-directors",
+  "description": "Board of Directors — AI-powered strategic decision framework. Convenes 10 director archetypes (Musk, Altman, Hassabis, Li, Nadella, Huang, Pichai, Hoffman, Ng, Jobs) to evaluate complex decisions from multiple strategic angles. Not a substitute for professional management consulting or legal/financial advice.",
+  "owner": {
+    "name": "Markus Begerow"
+  },
+  "plugins": [
+    {
+      "name": "board-of-directors",
+      "source": ".",
+      "description": "Strategic decision framework with 10 director archetypes and 7 shared methodology skills. Orchestrated via /board for multi-perspective analysis, or invoked individually per director.",
+      "version": "001.0.0",
+      "author": {
+        "name": "Markus Begerow"
+      }
+    }
+  ]
+}

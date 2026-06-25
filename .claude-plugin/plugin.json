@@ -1,0 +1,22 @@
+{
+  "name": "board-of-directors",
+  "version": "001.0.0",
+  "description": "Strategic decision framework with 10 director archetypes (Musk, Altman, Hassabis, Li, Nadella, Huang, Pichai, Hoffman, Ng, Jobs) and 7 shared methodology skills. Orchestrated via /board or invoked per director. Not a substitute for professional advice.",
+  "license": "Apache-2.0 OR MIT",
+  "author": {
+    "name": "Markus Begerow"
+  },
+  "homepage": "https://github.com/markusbegerow/board-of-directors",
+  "keywords": [
+    "strategy",
+    "decision-making",
+    "ai-agents",
+    "board",
+    "leadership",
+    "innovation",
+    "ethics",
+    "risk-assessment",
+    "first-principles",
+    "multi-perspective"
+  ]
+}
