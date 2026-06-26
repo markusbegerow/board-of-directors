@@ -2,12 +2,32 @@
 
 This guide is for people without a development background who want to use this repository with Claude Code.
 
-## Prerequisites
+## Option A — Install via Plugin Marketplace (Recommended)
+
+If you are running Claude Code 1.x or later, install directly from the marketplace with a single command inside Claude Code:
+
+```
+/plugin add markusbegerow/board-of-directors
+```
+
+That's it. Claude Code will fetch the plugin from GitHub, register all agents and skills, and make `/board` available immediately. To update later:
+
+```
+/plugin update markusbegerow/board-of-directors
+```
+
+---
+
+## Option B — Manual Setup (Git Clone)
+
+Use this if the `/plugin` command is not available in your version of Claude Code.
+
+### Prerequisites
 
 - An Anthropic account with access to Claude Code.
 - Git (to clone the repository), or use the ZIP download option on the repository page.
 
-## Steps on Windows
+### Steps on Windows
 
 1. Install Git if not already present: download from the official Git website and run the installer.
 2. Open Command Prompt or PowerShell.
@@ -20,14 +40,14 @@ This guide is for people without a development background who want to use this r
 5. Open Claude Code and select the extracted folder as the working directory.
 6. Verify that Claude Code detects the plugin from `.claude-plugin/marketplace.json`.
 
-## Steps on macOS
+### Steps on macOS
 
 1. Open Terminal.
 2. Git is usually pre-installed on macOS; alternatively install it via Homebrew (`brew install git`).
 3. Navigate to your desired working folder and clone or extract the repository.
 4. Open Claude Code and select the folder as the working directory.
 
-## First Test
+### First Test
 
 1. Follow `QUICKSTART.md`.
 2. Run a simple decision question: `/board Should we build or buy our data infrastructure?`
@@ -38,7 +58,7 @@ This guide is for people without a development background who want to use this r
    - A conflict matrix.
    - A synthesised decision proposal with a labelled recommendation (Act Now / Pilot / Investigate Further / Discard).
 
-## Common Issues
+### Common Issues
 
 - **Plugin not recognised:** Check that the top-level selected folder actually contains `.claude-plugin/marketplace.json`.
 - **Skill not found:** Use the skill name exactly as listed in `SKILLS.md`. Names are kebab-case, lowercase.

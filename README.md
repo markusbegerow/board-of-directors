@@ -6,6 +6,16 @@
 
 > **Important Notice:** This repository is an experimental collection of Claude Code agents and skills for multi-perspective strategic decision-making. The director profiles are archetypes inspired by publicly known topics, working methods, and leadership principles of the named individuals. They **do not simulate private views and do not speak on anyone's behalf**. All outputs are analytical work aids. This framework is **not** a substitute for professional management consulting, legal advice, or financial advice. Users bear sole responsibility for how they use or act upon any output.
 
+## Quick Install
+
+```
+/plugin add markusbegerow/board-of-directors
+```
+
+Run this inside Claude Code. That's all — agents and skills are available immediately. See `INSTALLATION.md` for the manual setup alternative.
+
+---
+
 ## What Is This?
 
 This repository provides one Claude Code plugin with 10 director agent profiles and 7 shared methodology skills that support structured multi-perspective decision-making.
