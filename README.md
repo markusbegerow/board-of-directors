@@ -6,13 +6,33 @@
 
 > **Important Notice:** This repository is an experimental collection of Claude Code agents and skills for multi-perspective strategic decision-making. The director profiles are archetypes inspired by publicly known topics, working methods, and leadership principles of the named individuals. They **do not simulate private views and do not speak on anyone's behalf**. All outputs are analytical work aids. This framework is **not** a substitute for professional management consulting, legal advice, or financial advice. Users bear sole responsibility for how they use or act upon any output.
 
-## Quick Install
+## Installation via Claude Code Marketplace
+
+The easiest way: add the marketplace once, then install the plugin.
 
 ```
-/plugin add markusbegerow/board-of-directors
+/plugin marketplace add markusbegerow/board-of-directors
 ```
 
-Run this inside Claude Code. That's all — agents and skills are available immediately. See `INSTALLATION.md` for the manual setup alternative.
+Then install the plugin:
+
+```
+/plugin install board-of-directors@board-of-directors
+```
+
+Skills are then callable with the plugin name as prefix, e.g.:
+
+```
+/board-of-directors:board Should we build or buy our data infrastructure?
+```
+
+To update to the latest version:
+
+```
+/plugin marketplace update board-of-directors
+```
+
+See `INSTALLATION.md` for the manual setup alternative (git clone).
 
 ---
 
