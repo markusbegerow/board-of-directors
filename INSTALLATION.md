@@ -2,25 +2,23 @@
 
 This guide is for people without a development background who want to use this repository with Claude Code.
 
-## Option A — Install via Plugin Marketplace (Recommended)
+## Option A — Open as Project Directory (Works Today)
 
-If you are running Claude Code 1.x or later, install directly from the marketplace with a single command inside Claude Code:
+No plugin command needed. Open the cloned folder as your Claude Code working directory.
+`CLAUDE.md` loads automatically and gives Claude the full board methodology and ruleset.
 
-```
-/plugin add markusbegerow/board-of-directors
-```
-
-That's it. Claude Code will fetch the plugin from GitHub, register all agents and skills, and make `/board` available immediately. To update later:
+Invoke the framework by natural language or by pasting the start prompt from `skills/board.md`:
 
 ```
-/plugin update markusbegerow/board-of-directors
+Use the Board of Directors orchestrator.
+Decision question: Should we build or buy our data infrastructure?
 ```
+
+Or ask a single director: "Use the elon-musk agent and evaluate: [question]"
 
 ---
 
 ## Option B — Manual Setup (Git Clone)
-
-Use this if the `/plugin` command is not available in your version of Claude Code.
 
 ### Prerequisites
 
@@ -38,7 +36,7 @@ Use this if the `/plugin` command is not available in your version of Claude Cod
    ```
    Alternatively: click "Code" → "Download ZIP" on the repository page, then extract the ZIP.
 5. Open Claude Code and select the extracted folder as the working directory.
-6. Verify that Claude Code detects the plugin from `.claude-plugin/marketplace.json`.
+6. `CLAUDE.md` loads automatically — Claude now has the full board context. Use the natural language start prompt from `skills/board.md` to begin.
 
 ### Steps on macOS
 
@@ -50,7 +48,7 @@ Use this if the `/plugin` command is not available in your version of Claude Cod
 ### First Test
 
 1. Follow `QUICKSTART.md`.
-2. Run a simple decision question: `/board Should we build or buy our data infrastructure?`
+2. Run a simple decision question using natural language: "Use the Board of Directors orchestrator. Decision question: Should we build or buy our data infrastructure?" — or use `/board-of-directors:board [question]` if you are on the ECC harness.
 3. Check that the output includes:
    - The archetype disclaimer at the top.
    - A list of the selected directors and why they were chosen.
@@ -60,7 +58,7 @@ Use this if the `/plugin` command is not available in your version of Claude Cod
 
 ### Common Issues
 
-- **Plugin not recognised:** Check that the top-level selected folder actually contains `.claude-plugin/marketplace.json`.
+- **Context not active:** Check that the top-level selected folder actually contains `CLAUDE.md`. Claude Code loads this automatically as the project system prompt.
 - **Skill not found:** Use the skill name exactly as listed in `SKILLS.md`. Names are kebab-case, lowercase.
 - **Agent not loading:** Confirm the agent file exists in `agents/<name>.md` and the YAML frontmatter is valid (`python scripts/validate_yaml_frontmatter.py`).
 

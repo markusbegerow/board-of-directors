@@ -6,33 +6,37 @@
 
 > **Important Notice:** This repository is an experimental collection of Claude Code agents and skills for multi-perspective strategic decision-making. The director profiles are archetypes inspired by publicly known topics, working methods, and leadership principles of the named individuals. They **do not simulate private views and do not speak on anyone's behalf**. All outputs are analytical work aids. This framework is **not** a substitute for professional management consulting, legal advice, or financial advice. Users bear sole responsibility for how they use or act upon any output.
 
-## Installation via Claude Code Marketplace
+## How to Use
 
-The easiest way: add the marketplace once, then install the plugin.
+There is no one-command install. Choose the option that fits your setup.
+
+### Option A — Open as project directory (works today, no extra setup)
+
+1. Clone the repository: `git clone https://github.com/markusbegerow/board-of-directors`
+2. Open the cloned folder as the working directory in Claude Code.
+3. `CLAUDE.md` is loaded automatically as the project context.
+4. Invoke the board by natural language or by pasting the start prompt from `skills/board.md`:
 
 ```
-/plugin marketplace add markusbegerow/board-of-directors
+Use the Board of Directors orchestrator.
+Decision question: Should we build or buy our data infrastructure?
 ```
 
-Then install the plugin:
+Or ask a specific director: "Use the elon-musk agent and evaluate: [question]"
 
-```
-/plugin install board-of-directors@board-of-directors
-```
+### Option B — ECC harness users
 
-Skills are then callable with the plugin name as prefix, e.g.:
+If you are running Claude Code with the ECC harness (you'll see `/ecc:*` skills available):
+
+1. Clone the repository as above.
+2. Run `/ecc:projects` inside Claude Code and register the cloned folder.
+3. Skills become available as slash commands, e.g.:
 
 ```
 /board-of-directors:board Should we build or buy our data infrastructure?
 ```
 
-To update to the latest version:
-
-```
-/plugin marketplace update board-of-directors
-```
-
-See `INSTALLATION.md` for the manual setup alternative (git clone).
+See `INSTALLATION.md` for a step-by-step guide.
 
 ---
 
@@ -91,7 +95,7 @@ All agents and skills follow the ruleset in `CLAUDE.md` (full) and `AGENTS.md` (
 
 ## License
 
-Apache-2.0 OR MIT — see `LICENSE-APACHE` and `LICENSE-MIT`.
+Apache-2.0 OR MIT — see `LICENSE`.
 
 ## Further Documents
 
