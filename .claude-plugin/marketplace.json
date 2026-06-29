@@ -9,7 +9,7 @@
     {
       "name": "board-of-directors",
       "displayName": "Board of Directors",
-      "source": ".",
+      "source": "https://github.com/markusbegerow/board-of-directors",
       "description": "Strategic decision framework with 10 director archetypes and 7 shared methodology skills. Orchestrated via /board for multi-perspective analysis, or invoked individually per director.",
       "version": "001.0.0",
       "author": {
