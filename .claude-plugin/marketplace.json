@@ -1,4 +1,5 @@
 {
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "board-of-directors",
   "description": "Board of Directors — AI-powered strategic decision framework. Convenes 10 director archetypes (Musk, Altman, Hassabis, Li, Nadella, Huang, Pichai, Hoffman, Ng, Jobs) to evaluate complex decisions from multiple strategic angles. Not a substitute for professional management consulting or legal/financial advice.",
   "owner": {
@@ -9,30 +10,14 @@
     {
       "name": "board-of-directors",
       "displayName": "Board of Directors",
-      "source": ".",
+      "source": "./board-of-directors",
       "description": "Strategic decision framework with 10 director archetypes and 7 shared methodology skills. Orchestrated via /board for multi-perspective analysis, or invoked individually per director.",
-      "version": "001.0.0",
+      "category": "productivity",
       "author": {
         "name": "Markus Begerow"
       },
       "homepage": "https://github.com/markusbegerow/board-of-directors",
-      "repository": "https://github.com/markusbegerow/board-of-directors",
-      "license": "Apache-2.0 OR MIT",
-      "keywords": [
-        "strategy",
-        "decision-making",
-        "ai-agents",
-        "board",
-        "leadership",
-        "innovation",
-        "ethics",
-        "risk-assessment",
-        "first-principles",
-        "multi-perspective"
-      ],
-      "category": "productivity",
-      "agents": "agents",
-      "skills": "skills"
+      "repository": "https://github.com/markusbegerow/board-of-directors"
     }
   ]
 }
