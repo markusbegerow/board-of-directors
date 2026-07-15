@@ -45,10 +45,31 @@ Or ask a single director: "Use the elon-musk agent and evaluate: [question]"
 3. Navigate to your desired working folder and clone or extract the repository.
 4. Open Claude Code and select the folder as the working directory.
 
+---
+
+## Option C — Claude Code Plugin Marketplace (No Clone Needed)
+
+If you don't need a local copy of the repository, register the marketplace and install the plugin directly inside Claude Code:
+
+```
+/plugin marketplace add markusbegerow/board-of-directors
+/plugin install board-of-directors@board-of-directors
+```
+
+Then invoke skills with the plugin name as a prefix:
+
+```
+/board-of-directors:board [your decision question]
+```
+
+Update later with `/plugin marketplace update board-of-directors`.
+
+> **Note:** This is the newest of the three installation paths and has not yet been confirmed end-to-end against a live Claude Code Marketplace install. If `/plugin install` fails, fall back to Option A or B and open an issue in the repository.
+
 ### First Test
 
 1. Follow `QUICKSTART.md`.
-2. Run a simple decision question using natural language: "Use the Board of Directors orchestrator. Decision question: Should we build or buy our data infrastructure?" — or use `/board-of-directors:board [question]` if you are on the ECC harness.
+2. Run a simple decision question using natural language: "Use the Board of Directors orchestrator. Decision question: Should we build or buy our data infrastructure?" — or use `/board-of-directors:board [question]` if you are on the ECC harness or installed via Option C.
 3. Check that the output includes:
    - The archetype disclaimer at the top.
    - A list of the selected directors and why they were chosen.
@@ -60,6 +81,6 @@ Or ask a single director: "Use the elon-musk agent and evaluate: [question]"
 
 - **Context not active:** Check that the top-level selected folder actually contains `CLAUDE.md`. Claude Code loads this automatically as the project system prompt.
 - **Skill not found:** Use the skill name exactly as listed in `SKILLS.md`. Names are kebab-case, lowercase.
-- **Agent not loading:** Confirm the agent file exists in `agents/<name>.md` and the YAML frontmatter is valid (`python scripts/validate_yaml_frontmatter.py`).
+- **Agent not loading:** Confirm the agent file exists — `agents/<name>.md` for Options A/B (project directory / ECC harness), or `board-of-directors/agents/<name>/AGENT.md` for Option C (Marketplace install) — and that the YAML frontmatter is valid (`python scripts/validate_yaml_frontmatter.py`).
 
 For further issues: open an issue in the repository.

@@ -36,6 +36,29 @@ If you are running Claude Code with the ECC harness (you'll see `/ecc:*` skills 
 /board-of-directors:board Should we build or buy our data infrastructure?
 ```
 
+### Option C — Claude Code Plugin Marketplace
+
+The simplest method if you don't need a local clone: register the marketplace once, then install the plugin.
+
+```
+/plugin marketplace add markusbegerow/board-of-directors
+/plugin install board-of-directors@board-of-directors
+```
+
+Skills are then available with the plugin name as a prefix, e.g.:
+
+```
+/board-of-directors:board Should we build or buy our data infrastructure?
+```
+
+Update later with:
+
+```
+/plugin marketplace update board-of-directors
+```
+
+> **Note:** This installation path has not yet been end-to-end tested against a live Claude Code Marketplace install in this session — please confirm it works for you after installing, and open an issue if `/plugin install` rejects the plugin source.
+
 See `INSTALLATION.md` for a step-by-step guide.
 
 ---

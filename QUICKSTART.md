@@ -1,8 +1,8 @@
 # Quickstart (2 minutes)
 
-1. Open this repository in Claude Code (select the folder as your project directory).
-2. Claude Code automatically detects the plugin via `.claude-plugin/marketplace.json`.
-3. Invoke the board orchestrator: `/board [your decision question]`
+1. Open this repository in Claude Code (select the folder as your project directory), or install it via the Claude Code Plugin Marketplace: `/plugin marketplace add markusbegerow/board-of-directors` then `/plugin install board-of-directors@board-of-directors` (see `INSTALLATION.md` Option C).
+2. If you opened the folder directly, `CLAUDE.md` loads automatically. If you installed via the marketplace, the plugin's `.claude-plugin/marketplace.json` entry is what Claude Code detects.
+3. Invoke the board orchestrator: `/board [your decision question]` (project directory) or `/board-of-directors:board [your decision question]` (marketplace install).
 4. Or invoke a single director directly:
    - `Use the elon-musk agent and evaluate: [question]`
    - `Use the sam-altman agent and evaluate: [question]`
