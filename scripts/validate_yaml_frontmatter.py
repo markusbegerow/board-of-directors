@@ -1,9 +1,13 @@
 #!/usr/bin/env python3
 """Validate that every agent and skill file has well-formed YAML frontmatter.
 
-Checks performed for each agents/<name>.md and skills/<name>.md:
+Checks performed for each agents/<name>.md, skills/<name>.md (legacy flat tree)
+and board-of-directors/agents/<name>/AGENT.md, board-of-directors/skills/<name>/SKILL.md
+(nested plugin tree):
 - starts with '---' frontmatter block containing 'name' and 'description'
-- name is kebab-case, <= 64 ASCII characters, matches the filename (without .md)
+- name is kebab-case, <= 64 ASCII characters, matches the expected name
+  (the filename without .md for flat files, the parent directory name for
+  nested AGENT.md/SKILL.md files)
 - description is a non-empty string, <= 1024 characters
 - no unexpected frontmatter-only fields (tools: is allowed for agent files)
 """
@@ -31,8 +35,7 @@ def extract_frontmatter(text: str):
     return parts[1]
 
 
-def validate_file(md_file: Path, errors: list) -> None:
-    filename_stem = md_file.stem
+def validate_file(md_file: Path, expected_name: str, errors: list) -> None:
     text = md_file.read_text(encoding="utf-8")
     raw_frontmatter = extract_frontmatter(text)
     if raw_frontmatter is None:
@@ -49,9 +52,9 @@ def validate_file(md_file: Path, errors: list) -> None:
 
     if not name:
         errors.append(f"{md_file}: field 'name' missing")
-    elif name != filename_stem:
+    elif name != expected_name:
         errors.append(
-            f"{md_file}: 'name' ({name!r}) does not match filename ({filename_stem!r})"
+            f"{md_file}: 'name' ({name!r}) does not match expected name ({expected_name!r})"
         )
     elif not KEBAB_RE.match(name) or len(name) > 64:
         errors.append(f"{md_file}: 'name' is not valid kebab-case (max 64 characters)")
@@ -66,18 +69,37 @@ def validate_file(md_file: Path, errors: list) -> None:
         errors.append(f"{md_file}: unexpected frontmatter fields: {sorted(unknown_fields)}")
 
 
+def collect_files() -> list:
+    """Return (path, expected_name) pairs for the legacy flat tree and the nested plugin tree."""
+    files = []
+
+    for kind in ("agents", "skills"):
+        flat_dir = ROOT / kind
+        if flat_dir.is_dir():
+            for md_file in sorted(flat_dir.glob("*.md")):
+                files.append((md_file, md_file.stem))
+
+    nested_root = ROOT / "board-of-directors"
+    nested_names = {"agents": "AGENT.md", "skills": "SKILL.md"}
+    for kind, filename in nested_names.items():
+        nested_dir = nested_root / kind
+        if nested_dir.is_dir():
+            for md_file in sorted(nested_dir.glob(f"*/{filename}")):
+                files.append((md_file, md_file.parent.name))
+
+    return files
+
+
 def main() -> int:
     errors = []
-    agent_files = sorted((ROOT / "agents").glob("*.md")) if (ROOT / "agents").is_dir() else []
-    skill_files = sorted((ROOT / "skills").glob("*.md")) if (ROOT / "skills").is_dir() else []
-    all_files = agent_files + skill_files
+    all_files = collect_files()
 
     if not all_files:
         print("No agent or skill .md files found.")
         return 1
 
-    for md_file in all_files:
-        validate_file(md_file, errors)
+    for md_file, expected_name in all_files:
+        validate_file(md_file, expected_name, errors)
 
     if errors:
         print(f"{len(errors)} error(s) found:")
@@ -85,7 +107,7 @@ def main() -> int:
             print(f"  - {error}")
         return 1
 
-    print(f"OK: {len(all_files)} file(s) valid ({len(agent_files)} agents, {len(skill_files)} skills).")
+    print(f"OK: {len(all_files)} file(s) valid.")
     return 0
 
 

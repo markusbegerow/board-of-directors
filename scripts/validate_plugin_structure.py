@@ -4,8 +4,10 @@
 Checks:
 - .claude-plugin/marketplace.json exists and is valid JSON
 - .claude-plugin/plugin.json exists and contains required fields
-- agents/ and skills/ directories exist and are non-empty
+- agents/<name>/AGENT.md and skills/<name>/SKILL.md exist and are non-empty
 - every file listed in marketplace plugins has a resolvable source directory
+- if a legacy flat tree (ROOT/agents/*.md, ROOT/skills/*.md) also exists,
+  its content stays byte-identical to the corresponding nested plugin file
 """
 import json
 import sys
@@ -13,6 +15,30 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 REQUIRED_PLUGIN_FIELDS = ["name", "version", "description", "license", "author"]
+
+
+def check_legacy_tree_sync(plugin_dir: Path, errors: list) -> None:
+    """If a legacy flat tree exists alongside the nested plugin tree, they must match.
+
+    board-of-directors keeps ROOT/agents/<name>.md + ROOT/skills/<name>.md around
+    for the "open as project directory" CLAUDE.md workflow, alongside the nested
+    agents/<name>/AGENT.md + skills/<name>/SKILL.md that the plugin actually ships.
+    Nothing else enforces these stay identical, so drift would go unnoticed.
+    """
+    if plugin_dir == ROOT:
+        return
+
+    for kind, nested_filename in (("agents", "AGENT.md"), ("skills", "SKILL.md")):
+        legacy_dir = ROOT / kind
+        if not legacy_dir.is_dir():
+            continue
+        for legacy_file in sorted(legacy_dir.glob("*.md")):
+            nested_file = plugin_dir / kind / legacy_file.stem / nested_filename
+            if not nested_file.exists():
+                errors.append(f"{legacy_file}: no matching nested file at {nested_file}")
+                continue
+            if legacy_file.read_text(encoding="utf-8") != nested_file.read_text(encoding="utf-8"):
+                errors.append(f"{legacy_file} and {nested_file} have drifted out of sync")
 
 
 def main() -> int:
@@ -55,12 +81,14 @@ def main() -> int:
                     errors.append(f"{plugin_json_path}: required field '{field}' missing")
 
         agents_dir = plugin_dir / "agents"
-        if not agents_dir.is_dir() or not any(agents_dir.glob("*.md")):
-            errors.append(f"{plugin_dir}: 'agents/' directory missing or contains no .md files")
+        if not agents_dir.is_dir() or not any(agents_dir.glob("*/AGENT.md")):
+            errors.append(f"{plugin_dir}: 'agents/' directory missing or contains no <name>/AGENT.md files")
 
         skills_dir = plugin_dir / "skills"
-        if not skills_dir.is_dir() or not any(skills_dir.glob("*.md")):
-            errors.append(f"{plugin_dir}: 'skills/' directory missing or contains no .md files")
+        if not skills_dir.is_dir() or not any(skills_dir.glob("*/SKILL.md")):
+            errors.append(f"{plugin_dir}: 'skills/' directory missing or contains no <name>/SKILL.md files")
+
+        check_legacy_tree_sync(plugin_dir, errors)
 
     if errors:
         print(f"{len(errors)} error(s) found:")

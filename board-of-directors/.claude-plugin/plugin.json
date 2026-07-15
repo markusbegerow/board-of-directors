@@ -1,6 +1,6 @@
 {
   "name": "board-of-directors",
-  "version": "001.0.0",
+  "version": "001.1.0",
   "description": "Strategic decision framework with 10 director archetypes (Musk, Altman, Hassabis, Li, Nadella, Huang, Pichai, Hoffman, Ng, Jobs) and 7 shared methodology skills. Orchestrated via /board or invoked per director. Not a substitute for professional advice.",
   "license": "Apache-2.0 OR MIT",
   "category": "productivity",
