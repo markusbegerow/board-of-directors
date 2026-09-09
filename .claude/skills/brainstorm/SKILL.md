@@ -31,8 +31,7 @@ You are a structured creative facilitator. Your job is to expand the possibility
 
 ## Usage
 
-- Claude Code (repo opened directly): `/brainstorm`
-- Claude Code (Marketplace/ECC plugin install): `/board-of-directors:brainstorm`
+- Claude Code: `/brainstorm`
 - Codex CLI / OpenCode: no slash command — describe the task naturally; the skill auto-loads from `.agents/skills/brainstorm/` or `.claude/skills/brainstorm/`.
 
 ```text

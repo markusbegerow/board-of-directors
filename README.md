@@ -8,55 +8,21 @@
 
 ## How to Use
 
-There is no one-command install required. Just cloning and opening the folder already works in all three supported tools — Claude Code, Codex CLI, and OpenCode — with zero setup. Two extra options exist for Claude Code users who want the plugin available outside this folder.
+There is no install step and no marketplace. Clone the repository and open the folder directly in whichever tool you use — each one discovers its own native files immediately:
 
-### Option A — Clone and open the folder (Claude Code, Codex CLI, or OpenCode — zero setup)
-
-1. Clone the repository: `git clone https://github.com/markusbegerow/board-of-directors`
-2. Open the cloned folder in your tool:
-   - **Claude Code** — select it as the working directory. `CLAUDE.md` loads automatically, and `.claude/agents/` / `.claude/skills/` are discovered as project agents/skills.
-   - **Codex CLI** — open it as the project. `AGENTS.md` loads automatically, and `.agents/skills/` is discovered as the project skill catalog.
-   - **OpenCode** — open it as the project. It discovers `.claude/skills/` (and `.agents/skills/`) automatically.
+1. Clone: `git clone https://github.com/markusbegerow/board-of-directors`
+2. Open the cloned folder as your project:
+   - **Claude Code** — `CLAUDE.md` loads automatically; `.claude/agents/` (10 subagents) and `.claude/skills/` (17 skills) are discovered as project agents/skills.
+   - **Codex CLI** — `AGENTS.md` loads automatically; `.agents/skills/` is discovered as the project skill catalog.
+   - **OpenCode** — `AGENTS.md` loads automatically; it discovers `.claude/skills/` and `.agents/skills/` directly, plus the native `.opencode/agent/` subagents and `.opencode/command/` slash commands.
 3. Invoke the board:
    - Claude Code: `/board [your decision question]`, or natural language.
-   - Codex CLI / OpenCode: describe the task in natural language — the `board` skill auto-loads. There is no slash-command syntax in these tools.
+   - OpenCode: `/board [your decision question]` (via `.opencode/command/board.md`), or natural language.
+   - Codex CLI: describe the task in natural language — the `board` skill auto-loads. There is no slash-command syntax in Codex CLI.
 
-Or ask a specific director — Claude Code: "Use the elon-musk agent and evaluate: [question]"; any tool: reference the matching `<director>-skills` skill (e.g. `elon-skills`) in natural language.
+Or ask a specific director — Claude Code: "Use the elon-musk agent and evaluate: [question]"; OpenCode: `/elon-skills [question]` or the `elon-musk` subagent; Codex CLI: reference the `elon-skills` skill in natural language.
 
-### Option B — ECC harness users (Claude Code)
-
-If you are running Claude Code with the ECC harness (you'll see `/ecc:*` skills available):
-
-1. Clone the repository as above.
-2. Run `/ecc:projects` inside Claude Code and register the cloned folder.
-3. Skills become available as slash commands, e.g.:
-
-```
-/board-of-directors:board Should we build or buy our data infrastructure?
-```
-
-### Option C — Claude Code Plugin Marketplace (Claude Code only, no clone needed)
-
-Use this if you want the plugin available in *other* Claude Code projects, not just this folder: register the marketplace once, then install the plugin.
-
-```
-/plugin marketplace add markusbegerow/board-of-directors
-/plugin install board-of-directors@board-of-directors
-```
-
-Skills are then available with the plugin name as a prefix, e.g.:
-
-```
-/board-of-directors:board Should we build or buy our data infrastructure?
-```
-
-Update later with:
-
-```
-/plugin marketplace update board-of-directors
-```
-
-> **Note:** The shipped plugin content (`board-of-directors/agents/`, `board-of-directors/skills/`) is machine-generated and validated byte-identical to its canonical source, so hand-copy transcription errors are ruled out — but a live end-to-end `/plugin install` from the Marketplace has not yet been confirmed in this session. Please confirm it works for you after installing, and open an issue if `/plugin install` rejects the plugin source.
+**Honest per-tool status** — only Claude Code's discovery has been structurally verified in this repository's own development session (the subagents and skills showed up as available tools once the files existed). OpenCode and Codex CLI are not installed in that environment, so their behavior above is the intended, structurally-correct integration per each tool's own documented discovery paths, not a live-tested confirmation — please verify locally (`opencode debug skill`, `opencode agent list`, or a live Codex CLI chat) and open an issue if something doesn't load.
 
 See `INSTALLATION.md` for a step-by-step guide.
 
@@ -64,12 +30,17 @@ See `INSTALLATION.md` for a step-by-step guide.
 
 ## What Is This?
 
-This repository provides 10 director agent profiles and 7 shared methodology skills that support structured multi-perspective decision-making — usable directly in Claude Code, Codex CLI, and OpenCode, and additionally packaged as a Claude Code plugin.
+This repository provides 10 director agent profiles and 7 shared methodology skills that support structured multi-perspective decision-making — usable directly in Claude Code, Codex CLI, and OpenCode. No plugin system, no marketplace: clone the repo, open it, use it.
 
-| Type | Count | Canonical source | Purpose |
+| Location | Count | Tool | Purpose |
 |---|---|---|---|
-| Director agents | 10 | `.claude/agents/` | Individual strategic perspectives, each with distinct focus and working method (Claude Code Task-spawnable subagent) |
-| Shared skills | 17 | `.claude/skills/` | Methodology skills (analyze, brainstorm, risk-assess, decision-matrix, synthesize, report) + persona invocation shortcuts + orchestrator — the cross-tool invocation surface for Claude Code, Codex CLI, and OpenCode |
+| `.claude/agents/<name>.md` | 10 | Claude Code | Task-spawnable director subagents |
+| `.opencode/agent/<name>.md` | 10 | OpenCode | Native director subagents |
+| `.claude/skills/<name>/SKILL.md` | 17 | Claude Code, OpenCode | Orchestrator + 6 methodology skills + 10 persona shortcuts (auto-trigger) |
+| `.agents/skills/<name>/SKILL.md` | 17 | Codex CLI, OpenCode | Hand-mirrored copy of `.claude/skills/` |
+| `.opencode/command/<name>.md` | 17 | OpenCode | Explicit `/command-name` wrappers over the same skills |
+
+`.claude/agents/` and `.claude/skills/` are the two files you hand-edit for any change; the rest are hand-mirrored copies/adaptations kept in sync manually (small enough at 44 files total — see `CONTRIBUTING.md`).
 
 ## The Directors
 
@@ -97,7 +68,7 @@ See `SKILLS.md` for a flat index of all skills, and `INSTALLATION.md` for a begi
 
 ## Ruleset
 
-All agents and skills follow the ruleset in `CLAUDE.md` (full) and `AGENTS.md` (condensed for other tools). Core reference documents:
+All agents and skills follow the ruleset in `AGENTS.md` (master, read by Codex CLI and OpenCode) — `CLAUDE.md` just imports it (`@AGENTS.md`) plus a short Claude Code-specific section. Core reference documents:
 
 - `references/methodik-board.md` — 5-step board decision methodology.
 - `references/archetype-guidelines.md` — Rules for how archetypes are defined and used responsibly.

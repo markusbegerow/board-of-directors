@@ -102,6 +102,5 @@ Clearly separate robust findings, hypotheses, and speculative options.
 
 ## Invocation
 
-- Claude Code (repo opened directly): `/reid-skills [question]`
-- Claude Code (Marketplace/ECC plugin install): `/board-of-directors:reid-skills [question]`
+- Claude Code: `/reid-skills [question]`
 - Codex CLI / OpenCode: no slash command — just describe the task; the skill auto-loads from `.agents/skills/reid-skills/` or `.claude/skills/reid-skills/`.

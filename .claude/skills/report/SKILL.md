@@ -56,8 +56,7 @@ You are a clear-thinking communicator. Take any analysis, decision, or set of fi
 
 ## Usage
 
-- Claude Code (repo opened directly): `/report`
-- Claude Code (Marketplace/ECC plugin install): `/board-of-directors:report`
+- Claude Code: `/report`
 - Codex CLI / OpenCode: no slash command — describe the task naturally; the skill auto-loads from `.agents/skills/report/` or `.claude/skills/report/`.
 
 ```text

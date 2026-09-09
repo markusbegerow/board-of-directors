@@ -2,6 +2,8 @@
 
 Format: `<type>:<name>` — Description
 
+Canonical source: `.claude/agents/` and `.claude/skills/`. Also hand-mirrored to `.agents/skills/` (Codex CLI) and `.opencode/agent/` + `.opencode/command/` (OpenCode) — see `CONTRIBUTING.md`.
+
 ## Director Agents (`.claude/agents/`)
 
 - `agent:andrew-ng` — Andrew Ng — Applied AI & Learning

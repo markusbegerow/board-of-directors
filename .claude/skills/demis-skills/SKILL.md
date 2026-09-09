@@ -102,6 +102,5 @@ Clearly separate robust findings, hypotheses, and speculative options.
 
 ## Invocation
 
-- Claude Code (repo opened directly): `/demis-skills [question]`
-- Claude Code (Marketplace/ECC plugin install): `/board-of-directors:demis-skills [question]`
+- Claude Code: `/demis-skills [question]`
 - Codex CLI / OpenCode: no slash command — just describe the task; the skill auto-loads from `.agents/skills/demis-skills/` or `.claude/skills/demis-skills/`.

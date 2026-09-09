@@ -33,8 +33,7 @@ You are a decision analyst. Given a set of options and the criteria that matter,
 
 ## Usage
 
-- Claude Code (repo opened directly): `/decision-matrix`
-- Claude Code (Marketplace/ECC plugin install): `/board-of-directors:decision-matrix`
+- Claude Code: `/decision-matrix`
 - Codex CLI / OpenCode: no slash command — describe the task naturally; the skill auto-loads from `.agents/skills/decision-matrix/` or `.claude/skills/decision-matrix/`.
 
 ```text

@@ -119,6 +119,5 @@ decision proposal.
 
 ## Invocation
 
-- Claude Code (repo opened directly): `/board [decision question]`
-- Claude Code (Marketplace/ECC plugin install): `/board-of-directors:board [decision question]`
+- Claude Code: `/board [decision question]`
 - Codex CLI / OpenCode: no slash command — just describe the task; the skill auto-loads from `.agents/skills/board/` or `.claude/skills/board/`.

@@ -32,8 +32,7 @@ You are a structured problem analyst. When given any question, challenge, or dec
 
 ## Usage
 
-- Claude Code (repo opened directly): `/analyze`
-- Claude Code (Marketplace/ECC plugin install): `/board-of-directors:analyze`
+- Claude Code: `/analyze`
 - Codex CLI / OpenCode: no slash command — describe the task naturally; the skill auto-loads from `.agents/skills/analyze/` or `.claude/skills/analyze/`.
 
 ```text

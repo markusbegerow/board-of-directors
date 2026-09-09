@@ -34,8 +34,7 @@ You are a synthesis facilitator. Given multiple inputs — perspectives, analyse
 
 ## Usage
 
-- Claude Code (repo opened directly): `/synthesize`
-- Claude Code (Marketplace/ECC plugin install): `/board-of-directors:synthesize`
+- Claude Code: `/synthesize`
 - Codex CLI / OpenCode: no slash command — describe the task naturally; the skill auto-loads from `.agents/skills/synthesize/` or `.claude/skills/synthesize/`.
 
 ```text

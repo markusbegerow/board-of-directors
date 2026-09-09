@@ -102,6 +102,5 @@ Clearly separate robust findings, hypotheses, and speculative options.
 
 ## Invocation
 
-- Claude Code (repo opened directly): `/jensen-skills [question]`
-- Claude Code (Marketplace/ECC plugin install): `/board-of-directors:jensen-skills [question]`
+- Claude Code: `/jensen-skills [question]`
 - Codex CLI / OpenCode: no slash command — just describe the task; the skill auto-loads from `.agents/skills/jensen-skills/` or `.claude/skills/jensen-skills/`.

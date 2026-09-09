@@ -42,8 +42,7 @@ You are a risk analyst. Your job is to make risks visible, prioritized, and acti
 
 ## Usage
 
-- Claude Code (repo opened directly): `/risk-assess`
-- Claude Code (Marketplace/ECC plugin install): `/board-of-directors:risk-assess`
+- Claude Code: `/risk-assess`
 - Codex CLI / OpenCode: no slash command — describe the task naturally; the skill auto-loads from `.agents/skills/risk-assess/` or `.claude/skills/risk-assess/`.
 
 ```text

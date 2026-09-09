@@ -102,6 +102,5 @@ Clearly separate robust findings, hypotheses, and speculative options.
 
 ## Invocation
 
-- Claude Code (repo opened directly): `/feifei-skills [question]`
-- Claude Code (Marketplace/ECC plugin install): `/board-of-directors:feifei-skills [question]`
+- Claude Code: `/feifei-skills [question]`
 - Codex CLI / OpenCode: no slash command — just describe the task; the skill auto-loads from `.agents/skills/feifei-skills/` or `.claude/skills/feifei-skills/`.

@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 """Regenerate SKILLS.md from the name/description frontmatter of every
-canonical agent and skill file. Run after adding or renaming an agent or skill."""
+.claude/agents/ and .claude/skills/ file. Run after adding or renaming an
+agent or skill (and after hand-mirroring the change into .agents/skills/
+and the matching .opencode/agent or .opencode/command file)."""
 import sys
 from pathlib import Path
 
@@ -10,8 +12,7 @@ except ImportError:
     print("PyYAML is required: pip install -r requirements.txt")
     sys.exit(1)
 
-sys.path.insert(0, str(Path(__file__).resolve().parent))
-from _content_trees import ROOT, canonical_agents, canonical_skills  # noqa: E402
+ROOT = Path(__file__).resolve().parent.parent
 
 
 def extract_frontmatter(text: str) -> dict:
@@ -28,32 +29,39 @@ def first_sentence(text: str) -> str:
 
 
 def main() -> int:
-    agents = list(canonical_agents())
-    skills = list(canonical_skills())
+    agents_dir = ROOT / ".claude" / "agents"
+    skills_dir = ROOT / ".claude" / "skills"
 
     lines = [
         "# SKILLS.md — Flat Index of All Agents and Skills",
         "",
         "Format: `<type>:<name>` — Description",
         "",
+        "Canonical source: `.claude/agents/` and `.claude/skills/`. Also hand-mirrored to "
+        "`.agents/skills/` (Codex CLI) and `.opencode/agent/` + `.opencode/command/` (OpenCode) "
+        "— see `CONTRIBUTING.md`.",
+        "",
     ]
 
-    if agents:
+    if agents_dir.is_dir():
+        agent_files = sorted(agents_dir.glob("*.md"))
         lines.append("## Director Agents (`.claude/agents/`)")
         lines.append("")
-        for name, agent_file in agents:
+        for agent_file in agent_files:
             data = extract_frontmatter(agent_file.read_text(encoding="utf-8"))
+            name = data.get("name", agent_file.stem)
             description = first_sentence(str(data.get("description") or ""))
             lines.append(f"- `agent:{name}` — {description}")
         lines.append("")
 
-    if skills:
+    if skills_dir.is_dir():
         generic_skills = []
         persona_skills = []
         orchestrator = []
 
-        for name, skill_file in skills:
+        for skill_file in sorted(skills_dir.glob("*/SKILL.md")):
             data = extract_frontmatter(skill_file.read_text(encoding="utf-8"))
+            name = data.get("name", skill_file.parent.name)
             description = first_sentence(str(data.get("description") or ""))
             entry = f"- `skill:{name}` — {description}"
             if name == "board":

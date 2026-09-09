@@ -1,16 +1,17 @@
 #!/usr/bin/env python3
 """Validate that every agent and skill file has well-formed YAML frontmatter.
 
-Checks performed for each canonical .claude/agents/<name>.md,
-.claude/skills/<name>/SKILL.md file and every generated mirror
-(.agents/skills/<name>/SKILL.md, board-of-directors/agents/<name>/AGENT.md,
-board-of-directors/skills/<name>/SKILL.md -- see scripts/_content_trees.py):
+Checks performed for each .claude/agents/<name>.md, .claude/skills/<name>/SKILL.md,
+and .agents/skills/<name>/SKILL.md file:
 - starts with '---' frontmatter block containing 'name' and 'description'
 - name is kebab-case, <= 64 ASCII characters, matches the expected name
-  (the filename without .md for flat files, the parent directory name for
-  nested AGENT.md/SKILL.md files)
+  (the filename without .md for flat agent files, the parent directory name
+  for nested SKILL.md files)
 - description is a non-empty string, <= 1024 characters
 - no unexpected frontmatter-only fields (tools: is allowed for agent files)
+
+`.opencode/agent/*.md` and `.opencode/command/*.md` use OpenCode's own
+frontmatter schema (`mode`, `agent`) and are intentionally out of scope here.
 """
 import re
 import sys
@@ -22,14 +23,7 @@ except ImportError:
     print("PyYAML is required: pip install -r requirements.txt")
     sys.exit(1)
 
-sys.path.insert(0, str(Path(__file__).resolve().parent))
-from _content_trees import (  # noqa: E402
-    canonical_agents,
-    canonical_skills,
-    iter_existing_agent_mirrors,
-    iter_existing_skill_mirrors,
-)
-
+ROOT = Path(__file__).resolve().parent.parent
 KEBAB_RE = re.compile(r"^[a-z0-9]+(-[a-z0-9]+)*$")
 ALLOWED_FIELDS = {"name", "description", "tools"}
 
@@ -78,18 +72,18 @@ def validate_file(md_file: Path, expected_name: str, errors: list) -> None:
 
 
 def collect_files() -> list:
-    """Return (path, expected_name) pairs for the canonical source and every generated mirror."""
+    """Return (path, expected_name) pairs for .claude/agents, .claude/skills, .agents/skills."""
     files = []
 
-    for name, path in canonical_agents():
-        files.append((path, name))
-    for name, path in canonical_skills():
-        files.append((path, name))
+    agents_dir = ROOT / ".claude" / "agents"
+    if agents_dir.is_dir():
+        for md_file in sorted(agents_dir.glob("*.md")):
+            files.append((md_file, md_file.stem))
 
-    for path in iter_existing_agent_mirrors():
-        files.append((path, path.parent.name))
-    for path in iter_existing_skill_mirrors():
-        files.append((path, path.parent.name))
+    for skills_dir in (ROOT / ".claude" / "skills", ROOT / ".agents" / "skills"):
+        if skills_dir.is_dir():
+            for md_file in sorted(skills_dir.glob("*/SKILL.md")):
+                files.append((md_file, md_file.parent.name))
 
     return files
 
